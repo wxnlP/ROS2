@@ -34,7 +34,7 @@ class StaticTfBroadcaster(Node):
         transform.transform.rotation.z = q[2]
         transform.transform.rotation.w = q[3]
 
-        # 发布
+        # 发布静态坐标变换
         self.static_tf.sendTransform(transform)
         self.get_logger().info(f"发布 TF:{transform}")
 
