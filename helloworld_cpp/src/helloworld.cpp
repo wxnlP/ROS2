@@ -1,15 +1,30 @@
 #include "rclcpp/rclcpp.hpp"
+#include <string>
+
+using  namespace std;
+/*
+    创建一个类节点，名字叫做TestNode,继承自Node.
+*/
+class TestNode : public rclcpp::Node
+{
+
+public:
+    // 构造函数,有一个参数为节点名称
+    TestNode(string name) : Node(name)
+    {
+        // 打印一句自我介绍
+        RCLCPP_INFO(this->get_logger(), "节点的名称为:%s.",name.c_str());
+    }
+
+};
 
 int main(int argc, char **argv)
 {
-  // 初始化 ROS2
-  rclcpp::init(argc, argv);
-  // 创建节点
-  auto node = rclcpp::Node::make_shared("helloworld_node");
-  // 输出文本
-  RCLCPP_INFO(node->get_logger(), "hello world!");
-  rclcpp::spin(node);
-  // 释放资源
-  rclcpp::shutdown();
-  return 0;
+    rclcpp::init(argc, argv);
+    /*产生一个Wang2的节点*/
+    auto node = make_shared<TestNode>("helloworld_node");
+    /* 运行节点，并检测退出信号*/
+    rclcpp::spin(node);
+    rclcpp::shutdown();
+    return 0;
 }
