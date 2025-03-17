@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'static_tf_broadcaster = py_tf.static_tf_broadcaster:main'
+            'static_tf_broadcaster = py_tf.static_tf_broadcaster:main',
+            'dynamic_tf_broadcaster = py_tf.dynamic_tf_broadcaster:main',
         ],
     },
 )
