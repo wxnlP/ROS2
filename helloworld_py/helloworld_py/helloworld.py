@@ -1,16 +1,23 @@
+#!/usr/bin/env python3
 import rclpy
-
-def main():
-    # 初始化 ROS2
-    rclpy.init()
-    # 创建节点
-    node = rclpy.create_node("helloworld_node")
-    # 输出文本
-    node.get_logger().error("damage world!")
-    rclpy.spin(node)
-    # 释放资源
-    rclpy.shutdown()
+from rclpy.node import Node
 
 
-if __name__ == '__main__':
-    main()
+class TestNode(Node):
+    """
+    继承Node类,并创建一个节点,打印节点名称
+    """
+    def __init__(self, node):
+        super().__init__(node)
+        self.node = node
+        self.get_logger().info(f"节点名称为{self.node}")
+
+
+def main(args=None):
+    """
+    ros2运行该节点的入口函数
+    """
+    rclpy.init(args=args) # 初始化rclpy
+    node = TestNode("helloworld_node")  # 新建一个节点
+    rclpy.spin(node) # 保持节点运行，检测是否收到退出指令（Ctrl+C）
+    rclpy.shutdown() # 关闭rclpy
