@@ -12,6 +12,21 @@ find_package(tf2_ros REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 
+# 添加可执行文件
+add_executable(static_tf src/static_tf_boradcaster.cpp)
+# 添加目标依赖
+ament_target_dependencies(
+  static_tf
+  "rclcpp"
+  "geometry_msgs"
+  "tf2_ros"
+)
+
+install(TARGETS
+  static_tf
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
