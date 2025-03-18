@@ -15,6 +15,8 @@ find_package(tf2_geometry_msgs REQUIRED)
 # 添加可执行文件
 add_executable(static_tf src/static_tf_boradcaster.cpp)
 add_executable(dynamic_tf src/dynamic_tf_boradcaster.cpp)
+add_executable(tf_listener src/tf_listener.cpp)
+
 # 添加目标依赖
 ament_target_dependencies(
   static_tf
@@ -28,10 +30,18 @@ ament_target_dependencies(
   "geometry_msgs"
   "tf2_ros"
 )
+ament_target_dependencies(
+  tf_listener  
+  "rclcpp"
+  "geometry_msgs"
+  "tf2_ros"
+  tf2_geometry_msgs
+)
 
 install(TARGETS
   static_tf
   dynamic_tf
+  tf_listener
   DESTINATION lib/${PROJECT_NAME}
 )
 
