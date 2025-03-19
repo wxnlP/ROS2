@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<robot name="genimind">
+    <!-- link_1:机器人身体部分 -->
+    <link name="base_link">
+        <!-- 外观描述 -->
+        <visual>
+            <!-- 1.沿着机器人几何中心的偏移和旋转分量 -->
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <!-- 2.几何形状 -->
+            <geometry>
+                <!-- 单位是米 -->
+                <box size="0.3 0.137 0.004"/>
+            </geometry>
+            <!-- 3.材料 -->
+            <material name="carbon_fiber">
+                <color rgba="0.05 0.05 0.05 1.0"/>
+            </material>
+        </visual>
+    </link>
+    <!-- link_2:惯性测量单元 -->
+    <link name="imu_link">
+        <visual>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.004 0.004 0.002"/>
+            </geometry>
+            <material name="black">
+                <color rgba="0.5 0.5 0.5 0.5"/>
+            </material>
+        </visual>
+    </link>
+    <!-- joint_1 -->
+    <joint name="joint_1" type="fixed">
+        <origin xyz="0.0 0.0 0.002" rpy="0.0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="imu_link"/>
+    </joint>
+</robot>
