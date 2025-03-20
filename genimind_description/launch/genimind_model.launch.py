@@ -8,7 +8,7 @@ def generate_launch_description():
     # 获取urdf功能包的路径
     urdf_pkg_path = get_package_share_directory("genimind_description")
     # 获取urdf文件的路径
-    urdf_file_path = urdf_pkg_path + "/urdf/genimind.urdf"
+    urdf_file_path = urdf_pkg_path + "/urdf/genimind.xacro"
     # 获取rviz初始化文件路径
     rviz_config_path = urdf_pkg_path + "/config/rviz/genimind_descriptionconfig.rviz"
 
@@ -21,7 +21,7 @@ def generate_launch_description():
 
     # 1.获取指令的返回内容
     substitutions_cmd = launch.substitutions.Command(
-        ["cat ", launch.substitutions.LaunchConfiguration("urdf")]
+        ["xacro  ", launch.substitutions.LaunchConfiguration("urdf")]
     )
     # 2.获取指令的返回内容(多一次类型转换)
     robot_description = launch_ros.parameter_descriptions.ParameterValue(

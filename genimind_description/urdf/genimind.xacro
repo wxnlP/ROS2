@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="genimind">
+    <!-- 声明base_link模块 -->
+    <xacro:macro name="base_link" params="size ">
+        <link name="base_link">
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <geometry>
+                    <box size="${size}"/>
+                </geometry>
+                <material name="carbon_fiber">
+                    <color rgba="0.05 0.05 0.05 1.0"/>
+                </material>
+            </visual>
+        </link>
+    </xacro:macro>
+    <!-- 声明imu_link模块 -->
+    <xacro:macro name="imu_link" params="imu_name xyz">
+        <!-- link -->
+        <link name="${imu_name}_link">
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <geometry>
+                    <box size="0.04 0.04 0.02"/>
+                </geometry>
+                <material name="red">
+                    <color rgba="1 0.0 0.0 0.8"/>
+                </material>
+            </visual>
+        </link>
+        <!-- joint -->
+        <joint name="${imu_name}_joint" type="fixed">
+            <origin xyz="${xyz}" rpy="0.0 0.0 0.0"/>
+            <parent link="base_link"/>
+            <child link="${imu_name}_link"/>
+        </joint>
+    </xacro:macro>
+
+    <!-- 声明wheel_link模块 -->
+    <xacro:macro name="wheel_link" params="wheel_name xyz">
+        <!-- link -->
+        <link name="${wheel_name}_link">
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="1.57 0.0 0.0"/>
+                <geometry>
+                    <cylinder radius="0.0375" length="0.03"/>
+                </geometry>
+                <material name="green">
+                    <color rgba="0.0 0.5 0.2 0.8"/>
+                </material>
+            </visual>
+        </link>
+        <!-- joint -->
+        <joint name="${wheel_name}_joint" type="continuous">
+            <origin xyz="${xyz}" rpy="0.0 0.0 0.0"/>
+            <parent link="base_link"/>
+            <child link="${wheel_name}_link"/>
+        </joint>
+    </xacro:macro>
+
+    <!-- 使用xacro模块 -->
+    <xacro:base_link size="0.3 0.274 0.05"/>
+    <xacro:imu_link imu_name="imu_main" xyz="0.0 0.0 0.035"/>
+    <xacro:wheel_link wheel_name="front_left_wheel" xyz="0.1125 0.152 0.0"/>
+    <xacro:wheel_link wheel_name="front_right_wheel" xyz="0.1125 -0.152 0.0"/>
+    <xacro:wheel_link wheel_name="back_left_wheel" xyz="-0.1125 0.152 0.0"/>
+    <xacro:wheel_link wheel_name="back_right_wheel" xyz="-0.1125 -0.152 0.0"/>
+</robot>
